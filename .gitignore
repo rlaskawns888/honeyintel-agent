@@ -241,3 +241,6 @@ downloads-quarantine/
 .terraform/
 *.tfstate
 *.tfstate.backup
+
+#Cowrie Dummy
+data/

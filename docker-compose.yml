@@ -1,0 +1,24 @@
+# HoneyIntel Agent - 로컬 개발용 앱 DB
+# Langfuse는 공식 compose로 별도 실행 (docs 참고)
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: honeyintel-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-honeyintel}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: ${POSTGRES_DB:-honeyintel}
+    ports:
+      - "127.0.0.1:5433:5432"   # Langfuse postgres(5432)와 충돌 방지
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-honeyintel} -d ${POSTGRES_DB:-honeyintel}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  db-data:

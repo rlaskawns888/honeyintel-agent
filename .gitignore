@@ -218,3 +218,26 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+# Node / TypeScript (MCP 서버, Next.js)
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+.env*.local
+
+# IDE
+.idea/
+.vscode/
+
+# Honeypot data (커밋 금지: 공격 로그·수집 파일)
+data/
+cowrie-logs/
+downloads-quarantine/
+*.pcap
+
+# Terraform/Azure 로컬 상태 (Phase 1 대비)
+.terraform/
+*.tfstate
+*.tfstate.backup
